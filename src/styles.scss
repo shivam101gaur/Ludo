@@ -1,1 +1,21 @@
 /* You can add global styles to this file, and also import other style files */
+/* Add this to your global styles.scss (not the component scss) */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  
+  /* Strictly forbid any scrollbars */
+  overflow: hidden; 
+  
+  /* Centers the game board on the screen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #121212; /* Dark background outside the board */
+  
+  /* Prevents mobile pull-to-refresh and swipe-to-go-back */
+  touch-action: none; 
+  user-select: none; /* Prevents text highlighting */
+}

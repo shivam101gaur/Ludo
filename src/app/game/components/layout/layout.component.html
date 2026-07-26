@@ -1,0 +1,63 @@
+<div class="ludo-wrapper">
+
+  <!-- LAYER 1: The 15x15 Static Board -->
+  <!-- This renders once and establishes the physical grid geometry -->
+  <div class="board-layer">
+    @for (cell of boardCells; track cell.id) {
+    <div class="board-cell"
+         [class.base-cell]="cell.type === 'base'"
+         [class.red]="cell.color === 'red'"
+         [class.green]="cell.color === 'green'"
+         [class.blue]="cell.color === 'blue'"
+         [class.yellow]="cell.color === 'yellow'"
+         [class.goal-center]="cell.type === 'goal-center'"
+         [class.safe-zone]="cell.type === 'safe-zone'"
+         [style.grid-column]="cell.span ? (cell.x + ' / span ' + cell.span) : cell.x"
+         [style.grid-row]="cell.span ? (cell.y + ' / span ' + cell.span) : cell.y">
+
+      <!-- Later, you can load your standalone Home Component inside these -->
+      @if (cell.type === 'base') {
+      <app-game-home />
+      @if(cell.color === 'red') {
+      <button (click)="toggleRed()">Toggle Red Door</button>
+      }
+      @if(cell.color === 'green') {
+      <button (click)="toggleGreen()">Toggle Green Door</button>
+      }
+      @if(cell.color === 'blue') {
+      <button (click)="toggleBlue()">Toggle Blue Door</button>
+      }
+      @if(cell.color === 'yellow') {
+      <button (click)="toggleYellow()">Toggle Yellow Door</button>  
+      }
+    }
+
+@if (cell.type === 'goal-center') {
+  <div class="goal-center" [class.red-open]="redOpen()">
+
+    <div class="goal-door red"></div>
+    <div class="goal-door green"></div>
+    <div class="goal-door blue"></div>
+    <div class="goal-door yellow"></div>
+
+    <div class="goal-core"></div>
+  </div>
+}
+    </div>
+    }
+  </div>
+
+  <!-- LAYER 2: The High-Performance Tokens -->
+  <!-- This layer sits invisibly on top; tokens move within it via GPU -->
+  <div class="token-layer">
+    <!-- 
+      @for (token of viewTokens(); track token.id) {
+        <div class="token {{ token.color }}"
+             [style.--x]="token.cssX"
+             [style.--y]="token.cssY">
+        </div>
+      } 
+    -->
+  </div>
+
+</div>
