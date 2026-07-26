@@ -6,7 +6,8 @@ export interface BoardCell {
   x: number;
   y: number;
   span?: number;
-  type: 'path' | 'base' | 'goal-center' | 'safe-zone';
+  type: 'path' | 'base' | 'goal-center';
+  isSafeZone?: boolean;
   color?: 'red' | 'green' | 'blue' | 'yellow';
 }
 
@@ -18,27 +19,6 @@ export interface BoardCell {
 })
 export class LayoutComponent {
   public boardCells: BoardCell[] = this.generateBoard();
-
-  redOpen = signal(false);
-  greenOpen = signal(false);
-  blueOpen = signal(false);
-  yellowOpen = signal(false);
-
-  toggleRed() {
-    this.redOpen.update(v => !v);
-  }
-
-  toggleGreen() {
-    this.greenOpen.update(v => !v);
-  }
-
-  toggleBlue() {
-    this.blueOpen.update(v => !v);
-  }
-
-  toggleYellow() {
-    this.yellowOpen.update(v => !v);
-  }
 
   private generateBoard(): BoardCell[] {
     const cells: BoardCell[] = [];
@@ -86,6 +66,44 @@ export class LayoutComponent {
             cells.push({ id: 'goal-center', x, y, span: 3, type: 'goal-center' });
           }
           continue; // Skip the other 8 cells in this 3x3 area
+        }
+  
+        if (y == 8  && x >= 2 && x <= 6) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'red', isSafeZone: true });
+          continue;
+        }
+        if (y == 8  && x >= 10 && x <= 14) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'yellow', isSafeZone: true });
+          continue;
+        }
+        if (x == 8  && y >= 2 && y <= 6) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'green', isSafeZone: true });
+          continue;
+        }
+        if (x == 8  && y >= 10 && y <= 14) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'blue', isSafeZone: true });
+          continue;
+        } 
+        
+        //red starting point
+        if(x==2 && y==7) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'red', isSafeZone: true });
+          continue;
+        }
+        //green starting point
+        if(x==9 && y==2) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'green', isSafeZone: true });
+          continue;
+        }
+        //blue starting point
+        if(x==7 && y==14) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'blue', isSafeZone: true });
+          continue;
+        }
+        //yellow starting point
+        if(x==14 && y==9) {
+          cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'yellow', isSafeZone: true });
+          continue;
         }
 
         // 5. Standard Path Cells

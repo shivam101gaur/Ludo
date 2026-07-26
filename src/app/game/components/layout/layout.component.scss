@@ -29,6 +29,10 @@
   /* Faint border to visualize the 225 cells during development */
   border: 1px solid rgba(0, 0, 0, 0.08); 
   box-sizing: border-box;
+  &.red { background-color: #ffeaea; }
+  &.green { background-color: #eaffe4; }
+  &.blue { background-color: #eaf3ff; }
+  &.yellow { background-color: #fffae0; }
 
   /* Example of how you will style specific cells later: */
   /* 
@@ -37,7 +41,7 @@
   */
 &.goal-center {
     position: relative;
-    background-color: #2c3e50; /* Dark center to distinguish it */
+    background-color: transparent; /* Dark center to distinguish it */
     border: 2px solid #222;
     
     /* Example: Optional styling to prep for the goal graphics */
@@ -46,128 +50,32 @@
     align-items: center;
     overflow: hidden; /* Ensures any child elements don't spill out */
 
-    .goal-door {
-      position: absolute;
-      width: 50%;
-      height: 50%;
+    // clip-path: polygon(50% 50%, 100% 0, 100% 35%, 100% 70%, 100% 100%, 50% 50%, 0 100%, 0% 70%, 0% 35%, 0 0);
+    // .goal-door {
+    //   position: absolute;
+    //   width: 50%;
+    //   height: 50%;
 
-      transition: transform .25s cubic-bezier(.2,1.2,.3,1);
-      will-change: transform;
-    }
-
-    .goal-door.red {
-
-      top: 0;
-      left: 0;
-
-      background: #ff5252;
-
-      clip-path: polygon(
-          0 0,
-          100% 0,
-          100% 100%
-      );
-
-      transform-origin: top left;
-
-      &.open {
-          transform:
-              rotate(-12deg)
-              translate(-18%, -18%);
-      }
-    }
-
-    .goal-door.green {
-
-  top: 0;
-  right: 0;
-
-  background: #3ecb4b;
-
-  clip-path: polygon(
-      0 0,
-      100% 0,
-      0 100%
-  );
-
-  transform-origin: top right;
-
-  &.open {
-      transform:
-          rotate(12deg)
-          translate(18%, -18%);
-  }
-}
-
-.goal-door.green {
-
-  top: 0;
-  right: 0;
-
-  background: #3ecb4b;
-
-  clip-path: polygon(
-      0 0,
-      100% 0,
-      0 100%
-  );
-
-  transform-origin: top right;
-
-  &.open {
-      transform:
-          rotate(12deg)
-          translate(18%, -18%);
-  }
-}
-
-.goal-door.blue {
-
-  bottom: 0;
-  left: 0;
-
-  background: #4c8cff;
-
-  clip-path: polygon(
-      0 0,
-      100% 100%,
-      0 100%
-  );
-
-  transform-origin: bottom left;
-
-  &.open {
-      transform:
-          rotate(12deg)
-          translate(-18%, 18%);
-  }
-}
-
-.goal-door.yellow {
-
-  bottom: 0;
-  right: 0;
-
-  background: #ffd740;
-
-  clip-path: polygon(
-      100% 0,
-      100% 100%,
-      0 100%
-  );
-
-  transform-origin: bottom right;
-
-  &.open {
-      transform:
-          rotate(-12deg)
-          translate(18%, 18%);
-  }
-}
-
+    //   transition: transform .25s cubic-bezier(.2,1.2,.3,1);
+    //   will-change: transform;
+    //   &.red {
+    //    top: 0;
+    //    left: 0;
  
-    
-
+    //    background: #ff5252;
+ 
+    //  clip-path: polygon(50% 50%, 100% 0, 100% 35%, 100% 70%, 100% 100%, 50% 50%, 0 100%, 0% 70%, 0% 35%, 0 0);
+ 
+ 
+    //    transform-origin: top left;
+ 
+    //    &.open {
+    //      transform:
+    //          rotate(-45deg)
+    //          translate(0%, 0%);
+    //    }
+    //   }
+    // }   
   }
   // &.goal-center { background-color: #fffae0; }
   &.base-cell {
