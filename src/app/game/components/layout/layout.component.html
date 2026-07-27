@@ -14,11 +14,11 @@
          [class.safe-zone]="cell.isSafeZone"
          [style.grid-column]="cell.span ? (cell.x + ' / span ' + cell.span) : cell.x"
          [style.grid-row]="cell.span ? (cell.y + ' / span ' + cell.span) : cell.y">
-         <!-- {{cell.id}} -->
+         {{cell.x}},{{cell.y}}
 
       <!-- Later, you can load your standalone Home Component inside these -->
       @if (cell.type === 'base') {
-      <app-game-home />
+      <app-game-home [color]="cell.color || 'grey'" />
       }
 
       @if(cell.type === 'goal-center') {

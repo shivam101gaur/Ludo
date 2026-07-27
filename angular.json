@@ -9,18 +9,24 @@
     "Ludo": {
       "projectType": "application",
       "schematics": {
+        "*:*": {
+          "skipTests": true
+        },
         "@schematics/angular:component": {
           "style": "scss",
           "type": "component",
-          "addTypeToClassName": true
+          "addTypeToClassName": true,
+          "skipTests": true
         },
         "@schematics/angular:service": {
           "type": "service",
-          "addTypeToClassName": true
+          "addTypeToClassName": true,
+          "skipTests": true
         },
         "@schematics/angular:directive": {
           "type": "directive",
-          "addTypeToClassName": true
+          "addTypeToClassName": true,
+          "skipTests": true
         }
       },
       "root": "",
