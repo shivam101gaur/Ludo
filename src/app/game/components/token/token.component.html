@@ -1,1 +1,5 @@
-<p>token works!</p>
+<!-- src/app/game/components/token/token.component.html -->
+<div class="token-circle" [style.background-color]="token_().color">
+  {{ token_().pathPosition }}
+  {{ posX_() }} , {{posY_()}}
+</div>

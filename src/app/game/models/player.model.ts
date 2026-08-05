@@ -3,8 +3,10 @@ import { Token } from './token.model';
 
 export interface Player {
   id: string;
+  playerIndex: PlayerIndex;
   email?: string;
   name: string;
   gender?: 'male' | 'female' | 'other';
-  tokens: Signal<Token[]>;
 }
+
+export type PlayerIndex = 0 | 1 | 2 | 3;

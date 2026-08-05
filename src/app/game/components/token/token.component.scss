@@ -1,0 +1,29 @@
+/* src/app/game/components/token/token.component.scss */
+
+/* Fix the selector to target just the host */
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Use 100% to fill the grid cell perfectly, no matter the screen size */
+  height: 100%;
+  width: 100%;
+  
+  /* The glide animation when col/row signals update */
+  transition: grid-column 0.3s ease-in-out, grid-row 0.3s ease-in-out;
+  
+  z-index: 10;
+  pointer-events: auto; /* Re-enable clicks for the tokens */
+}
+
+/* Let's actually draw a circle for the token so you can see it working! */
+.token-circle {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+  
+  /* We will dynamically bind the background color in the HTML */
+}

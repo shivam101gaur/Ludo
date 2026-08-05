@@ -1,0 +1,81 @@
+.dice-boundary {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  /* Adds 3D depth to the whole container */
+  perspective: 600px; 
+  border: 2px dashed rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+}
+
+.dice-translator {
+  /* Start in the center of the 160px container (assuming 60px dice) */
+  position: absolute;
+  top: 50px; 
+  left: 50px;
+  /* Smooth sliding across the X/Y axes */
+  transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* The Hop Animation */
+@keyframes dice-hop {
+  0%   { transform: translateY(0) scale(1); }
+  50%  { transform: translateY(-80px) scale(1.2); } /* Jumps up and slightly toward the camera */
+  100% { transform: translateY(0) scale(1); }
+}
+
+.dice-bouncer.is-bouncing {
+  /* Triggers the hop exactly for the duration of the roll */
+  animation: dice-hop 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.dice-rotator {
+  width: 60px;
+  height: 60px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* src/app/game/components/dice/dice.component.scss */
+.dice-scene {
+  width: 60px;
+  height: 60px;
+  /* Perspective gives the 3D effect depth. Lower = more extreme 3D */
+  perspective: 400px; 
+}
+
+.dice {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  /* Crucial: Keeps the 6 faces in a 3D space */
+  transform-style: preserve-3d;
+  /* Hardware-accelerated smooth rolling */
+  transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+.face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: white;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  font-weight: bold;
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+  /* Prevents seeing the back of the faces when rotating */
+  backface-visibility: hidden; 
+}
+
+/* Construct the Cube! Push each face out by 30px (half the 60px width) */
+.front  { transform: rotateY(0deg) translateZ(30px); }
+.right  { transform: rotateY(90deg) translateZ(30px); }
+.left   { transform: rotateY(-90deg) translateZ(30px); }
+.top    { transform: rotateX(90deg) translateZ(30px); }
+.bottom { transform: rotateX(-90deg) translateZ(30px); }
+.back   { transform: rotateY(180deg) translateZ(30px); }

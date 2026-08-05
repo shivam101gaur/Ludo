@@ -1,15 +1,25 @@
-import { Component, signal } from '@angular/core';
+import { Component, computed, inject, Signal, signal } from '@angular/core';
 import { GameHomeComponent } from '../game-home/game-home.component';
 import { BoardCell } from '../../models/game-board.model';
+import { TokenComponent } from '../token/token.component';
+import { GameEngineService } from '../../services/game-engine.service';
+import { PathPosition, Token } from '../../models/token.model';
+import { FormsModule } from "@angular/forms";
+import { DiceRollComponent } from '../dice-roll/dice-roll.component';
+import { DiceXComponent } from "../dice-x/dice-x.component";
 
 @Component({
   selector: 'app-layout',
-  imports: [GameHomeComponent],
+  imports: [GameHomeComponent, TokenComponent, FormsModule, DiceRollComponent, DiceXComponent],
   templateUrl: './layout.component.html',
   styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
+  public gameEngineService = inject(GameEngineService);
   public boardCells: BoardCell[] = this.generateBoard();
+  public tokenOnPath_: Signal<Token[]> = computed(()=>{
+    return this.gameEngineService.tokens_()?.filter(token=>token?.pathPosition>-1 && token?.pathPosition<=55) ?? []
+  })
 
   private generateBoard(): BoardCell[] {
     const cells: BoardCell[] = [];

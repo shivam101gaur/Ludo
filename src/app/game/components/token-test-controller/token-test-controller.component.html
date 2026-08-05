@@ -1,0 +1,23 @@
+<div class="test-controller">
+
+  <select class="user-select"
+          placeholder="Select a token"
+          [ngModel]="selectedTokenId_()"
+          (ngModelChange)="selectedTokenId_.set($event)">
+    \>
+    <option [value]="0"
+            selected>Select a token to test</option>
+    <option *ngFor="let token of gameEngineService.tokens_().filter(t => t.color === color_()) "
+            [value]="token.id">{{ token.id }}</option>
+  </select>
+  @if (selectedTokenId_()!='0') {
+
+  <input type="number"
+         placeholder="Change path position"
+         [ngModel]="selectedToken_()?.pathPosition"
+         (ngModelChange)="updateTokenPathPosition($event)">
+  <pre class="selected-token">
+    {{ selectedToken_()   | json}}
+  </pre>
+}
+</div>

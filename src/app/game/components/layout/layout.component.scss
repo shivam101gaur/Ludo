@@ -97,6 +97,11 @@
   width: 100%;
   height: 100%;
   
+  /* ADD THESE 3 LINES: Make it an identical 15x15 grid! */
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-rows: repeat(15, 1fr);
+  
   /* Prevents this invisible layer from blocking clicks on the board below */
   pointer-events: none; 
 }
@@ -115,4 +120,21 @@
   
   /* Re-enable clicks for just the tokens */
   pointer-events: auto; 
+}
+
+.dice-layer {
+    position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  
+  /* ADD THESE 3 LINES: Make it an identical 15x15 grid! */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  
+  /* Prevents this invisible layer from blocking clicks on the board below */
+  // pointer-events: none; 
 }

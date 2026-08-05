@@ -1,0 +1,193 @@
+<!-- The restricted boundary for the dice to move within -->
+<div class="dice-boundary"
+     (click)="rollDiceAndAnimate()">
+
+  <!-- Layer 1: X/Y Translation (Bound to Signal) -->
+  <div class="dice-translator"
+       [style.transform]="diceTranslation_()">
+
+    <!-- Layer 2: The Vertical Bounce (Triggered by class) -->
+    <div class="dice-bouncer"
+         [class.is-bouncing]="isRolling_()">
+
+      <!-- Layer 3: The 3D Rotation (Bound to Signal) -->
+      <div class="dice-rotator"
+           [style.transform]="diceRotation_()">
+        <!-- Face 1 (Front) -->
+        <div class="face front">
+          <svg viewBox="0 0 100 100"
+               width="100%"
+               height="100%"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect width="100"
+                  height="100"
+                  rx="15"
+                  fill="white"
+                  stroke="#333"
+                  stroke-width="4" />
+            <circle cx="50"
+                    cy="50"
+                    r="12"
+                    fill="#E53935" /> <!-- Often red in Ludo -->
+          </svg>
+        </div>
+
+        <!-- Face 2 (Right) -->
+        <div class="face right">
+          <svg viewBox="0 0 100 100"
+               width="100%"
+               height="100%"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect width="100"
+                  height="100"
+                  rx="15"
+                  fill="white"
+                  stroke="#333"
+                  stroke-width="4" />
+            <circle cx="25"
+                    cy="25"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="75"
+                    r="10"
+                    fill="#333" />
+          </svg>
+        </div>
+
+        <!-- Face 3 (Left) -->
+        <div class="face left">
+          <svg viewBox="0 0 100 100"
+               width="100%"
+               height="100%"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect width="100"
+                  height="100"
+                  rx="15"
+                  fill="white"
+                  stroke="#333"
+                  stroke-width="4" />
+            <circle cx="25"
+                    cy="25"
+                    r="10"
+                    fill="#333" />
+            <circle cx="50"
+                    cy="50"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="75"
+                    r="10"
+                    fill="#333" />
+          </svg>
+        </div>
+
+        <!-- Face 4 (Top) -->
+        <div class="face top">
+          <svg viewBox="0 0 100 100"
+               width="100%"
+               height="100%"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect width="100"
+                  height="100"
+                  rx="15"
+                  fill="white"
+                  stroke="#333"
+                  stroke-width="4" />
+            <circle cx="25"
+                    cy="25"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="25"
+                    r="10"
+                    fill="#333" />
+            <circle cx="25"
+                    cy="75"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="75"
+                    r="10"
+                    fill="#333" />
+          </svg>
+        </div>
+
+        <!-- Face 5 (Bottom) -->
+        <div class="face bottom">
+          <svg viewBox="0 0 100 100"
+               width="100%"
+               height="100%"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect width="100"
+                  height="100"
+                  rx="15"
+                  fill="white"
+                  stroke="#333"
+                  stroke-width="4" />
+            <circle cx="25"
+                    cy="25"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="25"
+                    r="10"
+                    fill="#333" />
+            <circle cx="50"
+                    cy="50"
+                    r="10"
+                    fill="#333" />
+            <circle cx="25"
+                    cy="75"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="75"
+                    r="10"
+                    fill="#333" />
+          </svg>
+        </div>
+
+        <!-- Face 6 (Back) -->
+        <div class="face back">
+          <svg viewBox="0 0 100 100"
+               width="100%"
+               height="100%"
+               xmlns="http://www.w3.org/2000/svg">
+            <rect width="100"
+                  height="100"
+                  rx="15"
+                  fill="white"
+                  stroke="#333"
+                  stroke-width="4" />
+            <circle cx="25"
+                    cy="20"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="20"
+                    r="10"
+                    fill="#333" />
+            <circle cx="25"
+                    cy="50"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="50"
+                    r="10"
+                    fill="#333" />
+            <circle cx="25"
+                    cy="80"
+                    r="10"
+                    fill="#333" />
+            <circle cx="75"
+                    cy="80"
+                    r="10"
+                    fill="#333" />
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,8 +1,10 @@
+import { PlayerIndex } from './player.model';
+
 export interface Token {
   id: string;
   color: string;
   pathPosition: PathPosition;   /** A number between 0 and 55 */
-  playerIndex: 0 | 1 | 2 | 3;
+  playerIndex: PlayerIndex;
 }
 
 export type PathPosition = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 
@@ -11,4 +13,12 @@ export type PathPosition = -1 | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10
   | 31 | 32 | 33 | 34 | 35 | 36 | 37 | 38 | 39 | 40 
   | 41 | 42 | 43 | 44 | 45 | 46 | 47 | 48 | 49 | 50 
   | 51 | 52 | 53 | 54 | 55;
+
+export type PlayerColor = 'red' | 'green' | 'yellow' | 'blue' | string;
+export const PLAYER_COLOR_MAP: Record<PlayerIndex, PlayerColor> = {
+  0: 'red',
+  1: 'green',
+  2: 'yellow',
+  3: 'blue'
+};
 
