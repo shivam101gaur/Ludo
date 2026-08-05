@@ -3,7 +3,7 @@ import { User } from '../../shared/models/user.model';
 import { DiceState, DiceValue } from '../models/dice.model';
 import { DEFAULT_PLAYERS } from '../constants/players.constants';
 import { Token } from '../models/token.model';
-import { DEFAULT_TOKENS } from '../constants/tokens.constants';
+import { INITIAL_TOKENS } from '../constants/tokens.constants';
 import { Player, PlayerIndex } from '../models/player.model';
 import { DEFAULT_DICE_STATE } from '../constants/dice.constants';
 
@@ -17,8 +17,10 @@ export class GameEngineService {
   public showDiceLayer_ = signal<boolean>(false);
 
   public diceState_ = signal<DiceState>(DEFAULT_DICE_STATE);
-  
-  tokens_ = signal<Token[]>(DEFAULT_TOKENS);
+
+  public readonly tokens: readonly Token[] = INITIAL_TOKENS;
+  // B. Spatial Index now holds direct memory references to the Tokens!
+  private readonly _mainTrackOccupancyMap = signal<Record<number, Token[]>>({});
 
   constructor() {
     this.loadGameStateFromLocalStorage();

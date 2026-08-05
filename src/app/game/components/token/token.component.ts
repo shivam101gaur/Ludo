@@ -6,23 +6,15 @@ import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-token',
-  imports: [  CommonModule, FormsModule ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './token.component.html',
   styleUrl: './token.component.scss',
   host: {
-    '[style.grid-column]': 'posX_()',
-    '[style.grid-row]': 'posY_()'
+    '[style.grid-column]': 'token_().posX_()',
+    '[style.grid-row]': 'token_().posY_()'
   }
 })
-export class TokenComponent  {
-  token_: InputSignal<Token> = input.required<Token>({alias: 'token'});
-  // isTokenInBase_: InputSignal<boolean> = input(false,{alias:'isTokenInBase'});
-  // isInGoal_: InputSignal<boolean> = input(false,{alias:'isInGoal'});
-  isInGoal_: Signal<boolean> = computed(() => this.token_()?.pathPosition === 55);
-  isSafe_: Signal<boolean> = computed(() => (isTokenSafe(this.token_()?.pathPosition??-1)));     
-  isTokenInBase_: Signal<boolean> = computed(() => this.token_()?.pathPosition === -1);
-  posX_ = computed(()=>getTokenGridCoordinates(this.token_())?.x);
-  posY_ = computed(()=>getTokenGridCoordinates(this.token_())?.y); 
-   
+export class TokenComponent {
+  token_: InputSignal<Token> = input.required<Token>({ alias: 'token' });
 
 }

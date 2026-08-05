@@ -1,6 +1,6 @@
 <div clas="home-container">
   <div class="token-test-controller">
-    <!-- <app-token-test-controller [color]="color_()"></app-token-test-controller> -->
+    <app-token-test-controller [color]="color_()"></app-token-test-controller>
         <!-- <app-dice-roll></app-dice-roll>
         <app-dice-x></app-dice-x> -->
   </div>
@@ -13,7 +13,7 @@
   </div>
   <div class="token-container">
 
-    @for(token of tokens_();track token;) {
+    @for(token of homeTokensInBase_();track token;) {
     <div class="token">
       <app-token [token]="token"></app-token>
     </div>

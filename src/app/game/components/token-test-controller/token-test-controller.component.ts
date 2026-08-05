@@ -13,33 +13,33 @@ import { GameEngineService } from '../../services/game-engine.service';
 export class TokenTestControllerComponent {
   public gameEngineService = inject(GameEngineService);
 
-  public color_ = input.required<string>({alias:'color'});
-  
+  public color_ = input.required<string>({ alias: 'color' });
+
   public selectedTokenId_: WritableSignal<string | null> = signal<string | null>('0');
   public selectedToken_: Signal<Token | null | undefined> = computed(() => {
-    return this.gameEngineService.tokens_()?.find(token => (token?.id === this.selectedTokenId_()))
+    return this.gameEngineService.tokens?.find(token => (token?.id === this.selectedTokenId_()))
   });
   constructor() { }
 
   public updateTokenPathPosition(newPathPosition: PathPosition): void {
     const tokenId = this.selectedTokenId_();
     const tokenToUpdate = { ...this.selectedToken_() };
-    tokenToUpdate.pathPosition = newPathPosition;
+    this.selectedToken_()?.pathPosition_?.set(newPathPosition);
 
-    this.gameEngineService.tokens_.update((oldTokens) => {
-      if (!tokenId) {
-        console.warn('No token selected for updating path position.');
-        return oldTokens;
-      }
-      const tokenIndex = oldTokens.findIndex(token => token.id === tokenId);
-      if (tokenIndex === -1) {
-        console.error(`Token with id ${tokenId} not found.`);
-        return oldTokens;
-      }
-      const updatedToken = { ...oldTokens[tokenIndex], pathPosition: newPathPosition };
-      const updatedTokens = [...oldTokens];
-      updatedTokens[tokenIndex] = updatedToken;
-      return updatedTokens;
-    });
+    // this.gameEngineService.tokens_.update((oldTokens) => {
+    //   if (!tokenId) {
+    //     console.warn('No token selected for updating path position.');
+    //     return oldTokens;
+    //   }
+    //   const tokenIndex = oldTokens.findIndex(token => token.id === tokenId);
+    //   if (tokenIndex === -1) {
+    //     console.error(`Token with id ${tokenId} not found.`);
+    //     return oldTokens;
+    //   }
+    //   const updatedToken = { ...oldTokens[tokenIndex], pathPosition: newPathPosition };
+    //   const updatedTokens = [...oldTokens];
+    //   updatedTokens[tokenIndex] = updatedToken;
+    //   return updatedTokens;
+    // });
   }
 }

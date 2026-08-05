@@ -17,9 +17,9 @@ import { DiceXComponent } from "../dice-x/dice-x.component";
 export class LayoutComponent {
   public gameEngineService = inject(GameEngineService);
   public boardCells: BoardCell[] = this.generateBoard();
-  public tokenOnPath_: Signal<Token[]> = computed(()=>{
-    return this.gameEngineService.tokens_()?.filter(token=>token?.pathPosition>-1 && token?.pathPosition<=55) ?? []
-  })
+  public tokenOnPath_: Signal<Token[]> = computed(() => {
+    return this.gameEngineService.tokens?.filter(token => !token.isTokenInBase_() && !token.isInGoal_()) ?? []
+  });
 
   private generateBoard(): BoardCell[] {
     const cells: BoardCell[] = [];
@@ -68,41 +68,41 @@ export class LayoutComponent {
           }
           continue; // Skip the other 8 cells in this 3x3 area
         }
-  
-        if (y == 8  && x >= 2 && x <= 6) {
+
+        if (y == 8 && x >= 2 && x <= 6) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'red', isSafeZone: true });
           continue;
         }
-        if (y == 8  && x >= 10 && x <= 14) {
+        if (y == 8 && x >= 10 && x <= 14) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'yellow', isSafeZone: true });
           continue;
         }
-        if (x == 8  && y >= 2 && y <= 6) {
+        if (x == 8 && y >= 2 && y <= 6) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'green', isSafeZone: true });
           continue;
         }
-        if (x == 8  && y >= 10 && y <= 14) {
+        if (x == 8 && y >= 10 && y <= 14) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'blue', isSafeZone: true });
           continue;
-        } 
-        
+        }
+
         //red starting point
-        if(x==2 && y==7) {
+        if (x == 2 && y == 7) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'red', isSafeZone: true });
           continue;
         }
         //green starting point
-        if(x==9 && y==2) {
+        if (x == 9 && y == 2) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'green', isSafeZone: true });
           continue;
         }
         //blue starting point
-        if(x==7 && y==14) {
+        if (x == 7 && y == 14) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'blue', isSafeZone: true });
           continue;
         }
         //yellow starting point
-        if(x==14 && y==9) {
+        if (x == 14 && y == 9) {
           cells.push({ id: `cell-${x}-${y}`, x, y, type: 'path', color: 'yellow', isSafeZone: true });
           continue;
         }

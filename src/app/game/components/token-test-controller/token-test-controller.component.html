@@ -7,17 +7,18 @@
     \>
     <option [value]="0"
             selected>Select a token to test</option>
-    <option *ngFor="let token of gameEngineService.tokens_().filter(t => t.color === color_()) "
-            [value]="token.id">{{ token.id }}</option>
+    @for(token of gameEngineService.tokens.filter(t => t.color === color_());track token;) {
+    <option [value]="token.id">{{ token.id }}</option>
+    }
   </select>
   @if (selectedTokenId_()!='0') {
 
   <input type="number"
          placeholder="Change path position"
-         [ngModel]="selectedToken_()?.pathPosition"
+         [ngModel]="selectedToken_()?.pathPosition_()"
          (ngModelChange)="updateTokenPathPosition($event)">
   <pre class="selected-token">
-    {{ selectedToken_()   | json}}
+  {{ selectedToken_()   | json}}
   </pre>
-}
+  }
 </div>

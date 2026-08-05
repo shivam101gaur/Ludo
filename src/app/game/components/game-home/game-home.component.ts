@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal, Signal, WritableSignal} from '@angular/core';
+import { Component, computed, inject, input, signal, Signal, WritableSignal } from '@angular/core';
 import { TokenComponent } from '../token/token.component';
 import { PathPosition, Token } from '../../models/token.model';
 import { GameEngineService } from '../../services/game-engine.service';
@@ -14,12 +14,17 @@ import { DiceXComponent } from "../dice-x/dice-x.component";
 })
 export class GameHomeComponent {
   public gameEngineService = inject(GameEngineService);
-  
-  public color_ = input.required<string>({alias:'color'});
 
-  public tokens_: Signal<Token[]> = computed(()=>{
-   return this.gameEngineService.tokens_()?.filter(token=>( token?.pathPosition === -1 && token?.color === this.color_()) ?? [])
+  public color_ = input.required<string>({ alias: 'color' });
+
+  // public tokens_: Signal<Token[]> = computed(() => {
+  //   return this.gameEngineService.tokens?.filter(token => (token?.pathPosition_ === -1 && token?.color === this.color_()) ?? [])
+  // });
+
+  public homeColorTokens_: Signal<Token[]> = computed(() => {
+    return this.gameEngineService.tokens?.filter(token => (token?.color === this.color_())) ?? []
   });
 
+  public homeTokensInBase_: Signal<Token[]> = computed(() => this.homeColorTokens_()?.filter(token_ => token_?.isTokenInBase_()));
 
 }
