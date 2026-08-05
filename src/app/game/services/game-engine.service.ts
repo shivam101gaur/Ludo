@@ -14,6 +14,8 @@ export class GameEngineService {
   public activePlayer_: Signal<Player> = computed(() => this.players_()[this.activePlayerIndex_()]);
   private extraTurn: number = 0;
 
+  public showDiceLayer_ = signal<boolean>(false);
+
   public diceState_ = signal<DiceState>(DEFAULT_DICE_STATE);
   
   tokens_ = signal<Token[]>(DEFAULT_TOKENS);
