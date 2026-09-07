@@ -14,7 +14,7 @@ export class GameEngineService {
   public activePlayer_: Signal<Player> = computed(() => this.players_()[this.activePlayerIndex_()]);
   private extraTurn: number = 0;
 
-  public showDiceLayer_ = signal<boolean>(false);
+  public showDiceLayer_ = signal<boolean>(true);
 
   public diceState_ = signal<DiceState>(DEFAULT_DICE_STATE);
 
@@ -38,16 +38,31 @@ export class GameEngineService {
 
   }
 
-  public rollDice(): void {
+  public rollDice(diceRolledValue: number): void {
     const {
       diceRollHistory,
       rolledValue,
       consecutiveSixesCount
     } = this.diceState_();
-    const rolledDiceValue: DiceValue = Math.floor(Math.random() * 6) + 1 as DiceValue;
-    const activePlayerIndex = this.activePlayerIndex_();
-    // TODO write game logic and rules
-    this.switchToNextPlayer();
+    if(diceRolledValue>=1 && diceRolledValue<=6) {
+      this.handleDiceRoll(diceRolledValue as DiceValue)
+    } 
+  }
+
+  private handleDiceRoll(diceRolledValue: DiceValue): void {
+     const activePlayerIndex = this.activePlayerIndex_();
+     this.diceState_.update(state=>(
+      {
+        ...state,
+        rolledValue:diceRolledValue,
+        diceRollHistory : [...state.diceRollHistory, diceRolledValue],
+        consecutiveSixesCount:diceRolledValue===6?(state.consecutiveSixesCount?? 0 )+1:state.consecutiveSixesCount
+     }));
+    // TODO handle token movement 
+    
+    if(this.diceState_().consecutiveSixesCount===6){
+      this.switchToNextPlayer();
+    }
   }
 
   public updatePlayer(playerIndex: number, updatedPlayer: Partial<Player>): void {

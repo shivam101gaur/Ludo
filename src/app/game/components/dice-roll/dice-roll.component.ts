@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { GameEngineService } from '../../services/game-engine.service';
 import { CommonModule } from '@angular/common';
+import { diceRollingTime } from '../../constants/dice.constants';
 
 @Component({
   selector: 'app-dice-roll',
@@ -13,9 +14,6 @@ export class DiceRollComponent {
   public diceState_ = this.gameEngineService.diceState_;
   constructor() {}
 
-  rollDice(): void {
-    this.gameEngineService.rollDice();
-  }
   // Signal bound to the dice [style.transform]
   public diceTransform_ = signal<string>('rotateX(0deg) rotateY(0deg)');
 
@@ -27,8 +25,8 @@ export class DiceRollComponent {
    * Rolls the dice physically in 3D and returns the result asynchronously.
    * Drop this right into the executeTurnFlow() we discussed!
    */
-  public rollDiceAndAnimate(): Promise<number> {
-    return new Promise((resolve) => {
+  public async rollDiceAndAnimate() {
+    const diceRolledValue: number =  await new Promise((resolve) => {
       // 1. Generate standard Ludo dice result (1-6)
       const result = Math.floor(Math.random() * 6) + 1;
 
@@ -59,7 +57,9 @@ export class DiceRollComponent {
       // 5. Resolve the promise exactly when the CSS animation finishes (1000ms)
       setTimeout(() => {
         resolve(result);
-      }, 1000); 
+      }, diceRollingTime); 
     });
+
+    this.gameEngineService.rollDice(diceRolledValue);
   }
 }
