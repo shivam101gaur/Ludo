@@ -13,6 +13,7 @@ export class GameEngineService {
   public activePlayerIndex_ = signal<PlayerIndex>(0);
   public activePlayer_: Signal<Player> = computed(() => this.players_()[this.activePlayerIndex_()]);
   private extraTurn: number = 0;
+  public activePlayerTokens = computed(()=>this.tokens.filter(({playerIndex})=>(playerIndex === this.activePlayerIndex_())));
 
   public showDiceLayer_ = signal<boolean>(true);
 
@@ -44,6 +45,7 @@ export class GameEngineService {
       rolledValue,
       consecutiveSixesCount
     } = this.diceState_();
+    this.extraTurn -= 1;
     if(diceRolledValue>=1 && diceRolledValue<=6) {
       this.handleDiceRoll(diceRolledValue as DiceValue)
     } 
@@ -58,8 +60,9 @@ export class GameEngineService {
         diceRollHistory : [...state.diceRollHistory, diceRolledValue],
         consecutiveSixesCount:diceRolledValue===6?(state.consecutiveSixesCount?? 0 )+1:state.consecutiveSixesCount
      }));
-    // TODO handle token movement 
-    
+    // TODO handle token movement
+    this.activePlayerTokens
+
     if(this.diceState_().consecutiveSixesCount===6){
       this.switchToNextPlayer();
     }
